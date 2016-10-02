@@ -1,0 +1,15 @@
+---
+- name: ansible ssh key
+user: >
+    name={{ ansible_user_id }}
+    generate_ssh_key=yes
+    ssh_key_file=.ssh/id_rsa
+
+- name: ansible ssh key exists at DigitalOcean
+digital_ocean: >
+    state=present
+    command=ssh
+    name= "{{ do_ansible_ssh_key_name }}"
+    ssh_pub_key= "{{ do_ansible_ssh_key }}"
+    api_token={{ do_token }}
+register: ansible_ssh_key
