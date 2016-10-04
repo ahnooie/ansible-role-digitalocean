@@ -31,8 +31,3 @@ digital_ocean: >
 with_items: "{{ do_droplets }}"
 register: do_droplet_details
 
-- name: Droplet Inventory
-  add_host:
-    name: "{{ item.hostname }}"
-    group: "{{ item.ansible_inventory_group }}"
-    
