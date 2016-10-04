@@ -5,7 +5,7 @@ user: >
     generate_ssh_key=yes
     ssh_key_file=.ssh/id_rsa
 
-- name: ansible ssh key exists at DigitalOcean
+- name: SSH Key
 digital_ocean: >
     state=present
     command=ssh
@@ -13,3 +13,26 @@ digital_ocean: >
     ssh_pub_key= "{{ do_ansible_ssh_key }}"
     api_token={{ do_token }}
 register: ansible_ssh_key
+
+- name: Droplet
+digital_ocean: >
+    state={{ item.state }}
+    command=droplet
+    name={{ item.hostname }}
+    unique_name=yes
+    size_id={{ item.size }}
+    region_id={{ item.region }}
+    image_id={{ item.imaege }}
+    ssh_key_ids={{ ansible_ssh_key.ssh_key.id }}
+    api_token={{ do_token }}
+    backups_enabled={{ item.backups_enabled}}
+    ipv6={{ item.ipv6 }}
+    private_networking={{ item.private_networking }}
+with_items: "{{ do_droplets }}"
+register: do_droplet_details
+
+- name: Droplet Inventory
+  add_host:
+    name: "{{ item.hostname }}"
+    group: "{{ item.ansible_inventory_group }}"
+    

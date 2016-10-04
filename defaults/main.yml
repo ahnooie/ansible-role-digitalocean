@@ -1,20 +1,28 @@
 ---
 do_token: do_token
 
-# FQDN
-do_droplet_fqdn: do_droplet
-
-# DigitalOcean Region ID
-# sfo1, sfo2, nyc1, nyc2, nyc3, etc.
-do_region: nyc3
-
-# "512mb", "1gb", "2gb", etc.
-do_droplet_size: 512mb
-
 # Ansible SSH key
 do_ansible_ssh_key: {{ lookup('file', '~/.ssh/id_rsa.pub') }}
 do_ansible_ssh_key_name: ansible_ssh_key
 
-# Image: e.g. ubuntu-16-04-x64
-do_image: ubuntu-16-04-x64
-
+#do_droplets:
+#- droplet1.sfo2.example.com:
+#    hostname: droplet1.sfo2.example.com
+#    region: sfo2
+#    size: 512mb
+#    image: ubuntu-16-04-x64
+#    state: present
+#    backups_enabled: no
+#    private_networking: yes
+#    ipv6: no
+#    ansible_inventory_group: digitalocean
+#- droplet2.nyc3.example.com:
+#    hostname: droplet2.nyc3.example.com
+#    region: nyc3
+#    size: 512mb
+#    image: ubuntu-16-04-x64
+#    state: present
+#    backups_enabled: no
+#    ipv6: no
+#    private_networking: yes
+#    ansible_inventory_group: digitalocean
